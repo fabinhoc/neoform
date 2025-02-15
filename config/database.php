@@ -114,11 +114,8 @@ return [
 
         'mongodb' => [
             'driver' => 'mongodb',
-            'host' => env('MONGO_DB_HOST'),
-            'port' => env('MONGO_DB_PORT'),
+            'dsn' => env('DB_URI'),
             'database' => env('MONGO_DB_DATABASE'),
-            'username' => env('MONGO_DB_USERNAME'),
-            'password' => env('MONGO_DB_PASSWORD'),
         ],
 
     ],
