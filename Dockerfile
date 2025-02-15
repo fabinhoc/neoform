@@ -11,10 +11,18 @@ RUN apk add --no-cache \
     shadow \
     postgresql-dev \
     libpq \
-    tzdata
+    tzdata \
+    autoconf \
+    g++ \
+    make \
+    libtool \
+    openssl-dev
 
 # Instala extensões PHP para Laravel, PostgreSQL e Redis
 RUN docker-php-ext-install pdo pdo_pgsql pgsql
+
+# Instalar a extensão MongoDB via PECL
+RUN pecl install mongodb && docker-php-ext-enable mongodb
 
 # Define o fuso horário
 ENV TZ=America/Sao_Paulo
