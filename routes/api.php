@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EFormConfigurationController;
 use App\Http\Controllers\EFormController;
 use App\Http\Controllers\RequestManagerController;
 use Illuminate\Support\Facades\Route;
@@ -10,3 +11,4 @@ Route::post('companies/{company}', [CompanyController::class,'update']);
 
 Route::apiResource('request-managers', RequestManagerController::class);
 Route::apiResource('e-forms', EFormController::class);
+Route::apiResource('e-form-configurations', EFormConfigurationController::class);
