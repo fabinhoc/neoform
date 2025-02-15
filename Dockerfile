@@ -16,20 +16,22 @@ RUN apk add --no-cache \
 # Instala extensões PHP para Laravel, PostgreSQL e Redis
 RUN docker-php-ext-install pdo pdo_pgsql pgsql
 
-# Instala o Composer globalmente
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-
 # Define o fuso horário
 ENV TZ=America/Sao_Paulo
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+# Cria novo grupo e adiciona novo usuario
+RUN addgroup -g 1000 laravel && adduser -D -u 1000 -G laravel laravel
+
+USER laravel
+
+# Instala o Composer globalmente
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+
 # Configura o diretório de trabalho
 WORKDIR /var/www/html
 COPY . .
-
-# Ajusta permissões
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Expõe a porta do PHP-FPM
 EXPOSE 9000
